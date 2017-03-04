@@ -99,7 +99,7 @@
 			margin: 5px auto;
 			cursor:pointer;
 		}
-		#result {
+		#result, #filter {
 		    width: 340px;
 		    height: 240px;
 		    position: absolute;
@@ -188,6 +188,22 @@
 		.buttons .ok-button {
 			color: green;
 		}
+
+		#filter .level, #filter .category {
+			color: blue;
+			font-size: 20px;
+			margin-bottom: 15px;
+		}
+
+		#filter .level .chooser, #filter .category .chooser {
+			color: black;
+			font-size: 16px;
+		}
+		#filter .level .chooser .item.checked, 
+		#filter .category .chooser .item.checked {
+			color: green;
+		}
+
 	</style>
 </head>
 <body class="no_selection">
@@ -204,17 +220,96 @@
 		<div class="subtitle"></div>
 		<div class="buttons">
 			<div class="ok-button" onclick="initGame()">Новая игра</div>
-			<div class="cancel-button" onclick="closeModal()">Отмена</div>
+			<div class="cancel-button" onclick="closeModal('result')">Отмена</div>
+		</div>
+	</div>
+	<div id="filter" class="hidden">
+		<div class="category">
+			Выберите категорию:
+			<div class="chooser">
+			</div>
+		</div>
+		<div class="level">
+			Выберите сложность:
+			<div class="chooser">
+			</div>
+		</div>
+		<div class="buttons">
+			<div class="ok-button" onclick="startGame()">Начать игру</div>
 		</div>
 	</div>
 	
 	<script type="text/javascript">	
+	showFilterModal();
+
 		var word = "";
 		var progressArray = [];	
 		var attempts = 10;	
-		initGame();
+		var words = [];
+		var filter = {category: [], level: []};
+		init();
+
+		// get array with all the words
+		function init() {
+			loadJSON(function(response) {
+				// Parse JSON string into object
+			    words = JSON.parse(response);
+
+			    // start the game
+			    parseFilter("category");
+				parseFilter("level");
+			    initGame();
+			});
+		}
+
+		function showFilterModal() {
+			var modalContainer = document.getElementById("filter");
+			var modalBack = document.getElementById("resultBackgroud");			
+
+			modalContainer.className = "";
+			modalBack.className = "";
+		}
+
+		function parseFilter(filterItem) {
+			var modalContainer = document.getElementById("filter");
+			var filterItemDiv = modalContainer.querySelector(filterItem).querySelector("chooser");
+
+			var filterItemArr = [];
+			for (var i = 0; i < words.length; i++) {
+				if (filterItemArr.indexOf(words[i][filterItem]) == -1) {
+					filterItemArr.push(words[i][filterItem]);
+				}
+			}
+			for (var i = 0; i < filterItemArr.length; i++) {
+				var row = document.createElement("div");
+				row.className = "item";
+				row.onclick = filterClick;
+				row.setAttribute("value", filterItemArr[i]);
+				row.innerHTML = " - " + filterItemArr[i];
+				filterItemDiv.appendChild(row);
+			}
+		}
+
+		function filterClick() {
+			var item = this;
+			var itemVal = item.getAttribute("value");
+			var filterItem = item.parentNode.className;
+
+			if (item.className.indexOf("checked")) {
+				item.className = "item";
+				filter[filterItem].splice(filter[filterItem].indexOf(itemVal), 1);
+			} else {
+				item.className = item.className.concat(" checked");
+				filter[filterItem].push(this.getAttribute("value"));
+			}			
+		}
 
 		function initGame() {
+			// show modal with filter
+			showFilterModal();			
+		}
+
+		function startGame() {
 			// очищаем поле
 			var progressContainer = document.getElementById("progress");
 			progressContainer.innerHTML = "";
@@ -222,9 +317,10 @@
 			var alphabetContainer = document.getElementById("alphabet");
 			alphabetContainer.innerHTML = "";
 
-			closeModal();
+			closeModal('result');
+			closeModal('filter');
 
-			// выбираем слово случайным образом
+			// выбираем слово случайным образом			
 			word = getWord();
 
 			// отображаем заготовку для слова
@@ -239,9 +335,39 @@
 			createKeypad();
 		}
 
+		function loadJSON(callback) {
+		    var xobj = new XMLHttpRequest();
+		        xobj.overrideMimeType("application/json");
+		    xobj.open('GET', 'words.json', true);
+		    xobj.onreadystatechange = function () {
+		          if (xobj.readyState == 4 && xobj.status == "200") {
+		            callback(xobj.responseText);
+		          }
+		    };
+		    xobj.send(null);  
+		}
+
 		function getWord() {
-			var words = ["комната", "постель", "оладушек", "птица"];
-			return words[Math.floor(Math.random() * words.length)];
+			var filteredWords = [];
+			if (!filter.category.length && !filter.level.length) {
+				filteredWords = words;
+			} else {
+				filteredWords = filterByFilterItem(filteredWords, "category");
+				filteredWords = filterByFilterItem(filteredWords, "level");
+			}
+
+			return filteredWords[Math.floor(Math.random() * words.length)].word;
+		}
+
+		function filterByFilterItem(filterItem, resultArr){
+			if (filter[filterItem].length) {
+				for (var i = 0; i < words.length; i++) {
+					if (filter[filterItem].indexOf(words[i][filterItem]) > -1) {
+						resultArr.push(words[i]);
+					}
+				}
+			}
+			return resultArr;
 		}
 
 		function initProgressArray(compWord) {
@@ -353,8 +479,8 @@
 			modalBack.className = "";
 		}
 
-		function closeModal() {
-			var modalContainer = document.getElementById("result");
+		function closeModal(modalName) {
+			var modalContainer = document.getElementById(modalName);
 			modalContainer.className = "hidden";
 			var modalBack = document.getElementById("resultBackgroud");
 			modalBack.className = "hidden";
