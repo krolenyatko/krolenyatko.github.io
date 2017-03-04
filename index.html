@@ -11,7 +11,7 @@
 		    -ms-user-select: none; /* IE10+ */
 		}
 		h1 {
-			font-family: "Verdana", sans-serif;
+			font-family: "Courier New", sans-serif;
 			font-weight: normal;
 			text-align: center;
 		}
@@ -47,6 +47,9 @@
 			font-family: "Courier New";
 			font-size: 12px;
 			margin: 5px;
+		}
+		#attempts.red {
+			color: red;
 		}
 		#alphabet {
 			width: 336px;
@@ -408,6 +411,12 @@
 
 		function showAttempts(counter) {
 			var attemptsContainer = document.getElementById("attempts");
+
+			if (attempts < 4) {
+				attemptsContainer.className = attemptsContainer.className.concat("red");
+			} else {
+				attemptsContainer.className = "";
+			}
 			attemptsContainer.querySelector("span").innerHTML = counter;
 		}
 
