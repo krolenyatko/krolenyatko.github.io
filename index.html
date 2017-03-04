@@ -298,8 +298,11 @@
 
 		function filterClick() {
 			var item = this;
-			var itemVal = item.getAttribute("value");
+			var itemVal = item.getAttribute("value");			
 			var filterItem = item.parentNode.parentNode.className;
+			if (filterItem == "level") {
+				itemVal = parseInt(itemVal);
+			}
 
 			if (item.className.indexOf("checked") > -1) {
 				item.className = "item";
@@ -358,17 +361,23 @@
 			if (!filter.category.length && !filter.level.length) {
 				filteredWords = words;
 			} else {
-				filteredWords = filterByFilterItem("category", filteredWords);
-				filteredWords = filterByFilterItem("level", filteredWords);
+				filteredWords = filterByFilterItem("category", filteredWords, words);
+				if (!filter.category.length) {
+					filteredWords = words;
+					arrToFilter = words;
+				} else {
+					arrToFilter = filteredWords;
+				}
+				filteredWords = filterByFilterItem("level", filteredWords, arrToFilter);
 			}
 
 			return filteredWords[Math.floor(Math.random() * filteredWords.length)].word;
 		}
 
-		function filterByFilterItem(filterItem, resultArr){
+		function filterByFilterItem(filterItem, resultArr, filteredArr){
 			if (filter[filterItem].length) {
-				for (var i = 0; i < words.length; i++) {
-					if (filter[filterItem].indexOf(words[i][filterItem]) > -1) {
+				for (var i = 0; i < filteredArr.length; i++) {
+					if (filter[filterItem].indexOf(filteredArr[i][filterItem]) > -1) {
 						resultArr.push(words[i]);
 					}
 				}
