@@ -361,20 +361,21 @@
 			if (!filter.category.length && !filter.level.length) {
 				filteredWords = words;
 			} else {
-				filteredWords = filterByFilterItem("category", filteredWords, words);
+				filteredWords = filterByFilterItem("category", words);
 				if (!filter.category.length) {
 					filteredWords = [];
 					arrToFilter = words;
 				} else {
 					arrToFilter = filteredWords;
 				}
-				filteredWords = filterByFilterItem("level", filteredWords, arrToFilter);
+				filteredWords = filterByFilterItem("level", arrToFilter);
 			}
 
 			return filteredWords[Math.floor(Math.random() * filteredWords.length)].word;
 		}
 
-		function filterByFilterItem(filterItem, resultArr, filteredArr){
+		function filterByFilterItem(filterItem, filteredArr){
+			var resultArr = [];
 			if (filter[filterItem].length) {
 				for (var i = 0; i < filteredArr.length; i++) {
 					if (filter[filterItem].indexOf(filteredArr[i][filterItem]) > -1) {
