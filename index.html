@@ -198,6 +198,7 @@
 		#filter .level .chooser, #filter .category .chooser {
 			color: black;
 			font-size: 16px;
+			cursor: pointer;
 		}
 		#filter .level .chooser .item.checked, 
 		#filter .category .chooser .item.checked {
@@ -273,6 +274,7 @@
 		function parseFilter(filterItem) {
 			var modalContainer = document.getElementById("filter");
 			var filterItemDiv = modalContainer.querySelector("." + filterItem).querySelector(".chooser");
+			var levels = ["легко", "средне", "сложно"];
 
 			var filterItemArr = [];
 			for (var i = 0; i < words.length; i++) {
@@ -285,7 +287,11 @@
 				row.className = "item";
 				row.onclick = filterClick;
 				row.setAttribute("value", filterItemArr[i]);
-				row.innerHTML = " - " + filterItemArr[i];
+				var innerHTML = filterItemArr[i];
+				if (filterItem == "level") {
+					innerHTML = levels[innerHTML];
+				}
+				row.innerHTML = " - " + innerHTML;
 				filterItemDiv.appendChild(row);
 			}
 		}
@@ -293,7 +299,7 @@
 		function filterClick() {
 			var item = this;
 			var itemVal = item.getAttribute("value");
-			var filterItem = item.parentNode.className;
+			var filterItem = item.parentNode.parentNode.className;
 
 			if (item.className.indexOf("checked") > -1) {
 				item.className = "item";
