@@ -1,0 +1,212 @@
+[
+	{
+		"word": "слон",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "крокодил",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "енот",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "бабочка",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "капибара",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "жираф",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "бурозубка",
+		"category": "животные",
+		"level": 2
+	},
+	{
+		"word": "бурундук",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "ехидна",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "черепаха",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "муравьед",
+		"category": "животные",
+		"level": 2
+	},
+	{
+		"word": "собака",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "кот",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "курица",
+		"category": "животные",
+		"level": 0
+	},
+	{
+		"word": "птеродактиль",
+		"category": "животные",
+		"level": 2
+	},
+	{
+		"word": "стрекоза",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "ибис",
+		"category": "животные",
+		"level": 1
+	},
+	{
+		"word": "спорт",
+		"category": "спорт",
+		"level": 0
+	},
+	{
+		"word": "судья",
+		"category": "спорт",
+		"level": 0
+	},
+	{
+		"word": "тренировка",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "пипидастр",
+		"category": "спорт",
+		"level": 2
+	},
+	{
+		"word": "мяч",
+		"category": "спорт",
+		"level": 0
+	},
+	{
+		"word": "рикошет",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "ворота",
+		"category": "спорт",
+		"level": 0
+	},
+	{
+		"word": "вратарь",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "марафон",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "дистанция",
+		"category": "спорт",
+		"level": 2
+	},
+	{
+		"word": "кубок",
+		"category": "спорт",
+		"level": 0
+	},
+	{
+		"word": "дисквалификация",
+		"category": "спорт",
+		"level": 2
+	},
+	{
+		"word": "тренировка",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "олимпиада",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "пенальти",
+		"category": "спорт",
+		"level": 2
+	},
+	{
+		"word": "стадион",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "бассейн",
+		"category": "спорт",
+		"level": 1
+	},
+	{
+		"word": "ничья",
+		"category": "спорт",
+		"level": 0
+	},
+	{
+		"word": "пейзаж",
+		"category": "искусство",
+		"level": 0
+	},
+	{
+		"word": "кисть",
+		"category": "искусство",
+		"level": 0
+	},
+	{
+		"word": "импрессионизм",
+		"category": "искусство",
+		"level": 2
+	},
+	{
+		"word": "перспектива",
+		"category": "искусство",
+		"level": 2
+	},
+	{
+		"word": "художник",
+		"category": "искусство",
+		"level": 1
+	},
+	{
+		"word": "меценат",
+		"category": "искусство",
+		"level": 1
+	},
+	{
+		"word": "композиция",
+		"category": "искусство",
+		"level": 2
+	}
+]
