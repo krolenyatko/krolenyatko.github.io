@@ -358,8 +358,8 @@
 			if (!filter.category.length && !filter.level.length) {
 				filteredWords = words;
 			} else {
-				filteredWords = filterByFilterItem(filteredWords, "category");
-				filteredWords = filterByFilterItem(filteredWords, "level");
+				filteredWords = filterByFilterItem("category", filteredWords);
+				filteredWords = filterByFilterItem("level", filteredWords);
 			}
 
 			return filteredWords[Math.floor(Math.random() * words.length)].word;
