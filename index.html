@@ -272,7 +272,7 @@
 
 		function parseFilter(filterItem) {
 			var modalContainer = document.getElementById("filter");
-			var filterItemDiv = modalContainer.querySelector(filterItem).querySelector("chooser");
+			var filterItemDiv = modalContainer.querySelector("." + filterItem).querySelector(".chooser");
 
 			var filterItemArr = [];
 			for (var i = 0; i < words.length; i++) {
@@ -295,7 +295,7 @@
 			var itemVal = item.getAttribute("value");
 			var filterItem = item.parentNode.className;
 
-			if (item.className.indexOf("checked")) {
+			if (item.className.indexOf("checked") > -1) {
 				item.className = "item";
 				filter[filterItem].splice(filter[filterItem].indexOf(itemVal), 1);
 			} else {
