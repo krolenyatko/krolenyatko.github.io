@@ -362,7 +362,7 @@
 				filteredWords = filterByFilterItem("level", filteredWords);
 			}
 
-			return filteredWords[Math.floor(Math.random() * words.length)].word;
+			return filteredWords[Math.floor(Math.random() * filteredWords.length)].word;
 		}
 
 		function filterByFilterItem(filterItem, resultArr){
