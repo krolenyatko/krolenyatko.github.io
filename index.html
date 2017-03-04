@@ -301,7 +301,7 @@
 			var itemVal = item.getAttribute("value");			
 			var filterItem = item.parentNode.parentNode.className;
 			if (filterItem == "level") {
-				itemVal = parseInt(itemVal);
+				itemVal = parseInt(itemVal, 10);
 			}
 
 			if (item.className.indexOf("checked") > -1) {
@@ -309,7 +309,7 @@
 				filter[filterItem].splice(filter[filterItem].indexOf(itemVal), 1);
 			} else {
 				item.className = item.className.concat(" checked");
-				filter[filterItem].push(this.getAttribute("value"));
+				filter[filterItem].push(itemVal);
 			}			
 		}
 
