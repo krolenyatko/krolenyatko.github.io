@@ -363,7 +363,7 @@
 			} else {
 				filteredWords = filterByFilterItem("category", filteredWords, words);
 				if (!filter.category.length) {
-					filteredWords = words;
+					filteredWords = [];
 					arrToFilter = words;
 				} else {
 					arrToFilter = filteredWords;
@@ -376,8 +376,8 @@
 
 		function filterByFilterItem(filterItem, resultArr, filteredArr){
 			if (filter[filterItem].length) {
-				for (var i = 0; i < filteredArr.length; i++) {
-					if (filter[filterItem].indexOf(filteredArr[i][filterItem]) > -1) {
+				for (var i = 0; i < arrToFilter.length; i++) {
+					if (filter[filterItem].indexOf(arrToFilter[i][filterItem]) > -1) {
 						resultArr.push(words[i]);
 					}
 				}
