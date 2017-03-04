@@ -368,7 +368,9 @@
 				} else {
 					arrToFilter = filteredWords;
 				}
-				filteredWords = filterByFilterItem("level", arrToFilter);
+				if (filter.level.length) {
+					filteredWords = filterByFilterItem("level", arrToFilter);
+				}				
 			}
 
 			return filteredWords[Math.floor(Math.random() * filteredWords.length)].word;
