@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Find the treasure!</title>
+	<style type="text/css">
+		body {
+			font-family: "Courier New";
+		}
+		h1, #distance {
+			text-align: center;
+			margin-bottom: 5px;
+			color: orange;
+		}
+		#distance {
+			margin-bottom: 20px;
+			font-size: 20px;
+		}
+		img, span {
+			display: block;
+    		margin: 0 auto;
+    		text-align: center;
+		}
+		img {
+			margin-top: 20px;
+		}
+		#startGame {
+			width: 200px;
+			height: 42px;
+			font-size: 20px;
+			line-height: 42px;
+			border:1px solid #f5f5f5;
+			border-radius: 3px;
+			margin: 0 auto;
+			display: block;
+			color: black;
+			text-align: center;
+			cursor:pointer;
+		}
+		.hidden {
+			display: none!important;
+		}
+		.win, .lose {
+			font-size: 20px;
+			font-weight: bold;
+		}
+		.win {
+			color: green!important;
+		}
+		.lose {
+			color: red!important;
+		}
+	</style>
+</head>
+<body>
+	<h1 id="heading">Find the treasure!</h1>
+	<span>click on the map to find the treasure</span>
+	<span>hints at the bottom of the map will help you!</span>
+	<img id="map" width="400" height="400" src="img/treasuremap.png">
+	<p id="distance"></p>
+	<div id="startGame" class="hidden">Start new game!</div>
+
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script type="text/javascript">
+		var width = 400;
+		var height = 400;
+		var clickCounter = 0;
+		var gameEnded = false;
+		var target = {
+			x: getRandomNumber(width),
+			y: getRandomNumber(height)
+		};
+		function getRandomNumber(size){
+			return Math.floor(Math.random() * size);
+		}
+		function getDistance(event, targetObj) {
+			var diffX = event.offsetX - targetObj.x;
+			var diffY = event.offsetY - targetObj.y;
+			return Math.sqrt((diffX * diffX) + (diffY * diffY));
+		}
+		function distanceHint(distance) {
+			var text = " // You have " + (10 - clickCounter) + " clicks left";
+			var hint = "";
+			if (distance < 8) {
+				hint = "You win! You found the treasure!";
+				color = "#65ff00";
+			} else if(distance < 10) {
+				hint = "Oooouch! HOT!";
+				color = "#FF0040";
+			} else if (distance < 20) {
+				hint = "Very hot!";
+				color = "#FF2800";
+			} else if (distance < 40) {
+				hint = "Hot.";
+				color = "#FF8200";
+			} else if (distance < 80) {
+				hint = "Warm";
+				color = "#FFfa00";
+			} else if (distance < 160) {
+				hint = "Cold";
+				color = "#00e4ff";
+			} else if (distance < 320) {
+				hint = "Very cold";
+				color = "#0054ff";
+			} else {
+				hint = "You will freeze here!";
+				color = "#0500ff";
+			}
+			return {
+				hint: hint.concat(text),
+				color: color
+			};
+		}
+		$("#map").click(function(event){
+			if (!gameEnded) {
+				clickCounter++;
+				if (clickCounter > 9) {
+					gameEnded = true;
+					$("p#distance").addClass("lose");
+					$("p#distance").html("You lose!");
+					$("#startGame").removeClass("hidden");
+				} else {
+					var distance = getDistance(event, target);
+					var hint = distanceHint(distance);
+					$("p#distance").html(hint.hint);
+					$("p#distance").css("color", hint.color);
+					if (distance < 8) {
+						$("p#distance").addClass("win");
+						$("#startGame").removeClass("hidden");
+						gameEnded = true;
+					}
+				}
+			}
+		});
+		$("#startGame").click(function() {
+			clickCounter = 0;
+			gameEnded = false;
+			target = {
+				x: getRandomNumber(width),
+				y: getRandomNumber(height)
+			};
+			$("p#distance").removeClass("win").removeClass("lose").html("");
+			$("#startGame").addClass("hidden");
+		});
+	</script>
+</body>
+</html>
